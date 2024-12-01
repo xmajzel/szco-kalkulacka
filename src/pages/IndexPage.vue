@@ -59,17 +59,17 @@
         </template>
 
         <div class="n-index-page__input-container">
-          <n-text font-size="small" text="Minimálny vymeriavací základ" />
+          <n-text font-size="small" text="Minimálny vymeriavací základ (mesačný)" />
           <q-input dense v-model.number="constantData.taxBase.min" suffix="€" />
         </div>
 
         <div class="n-index-page__input-container">
-          <n-text font-size="small" text="Maximálny vymeriavací základ" />
+          <n-text font-size="small" text="Maximálny vymeriavací základ (mesačný)" />
           <q-input dense v-model.number="constantData.taxBase.max" suffix="€" />
         </div>
 
         <div class="n-index-page__input-container">
-          <n-text font-size="small" text="Minimálne zdravotné odvody" />
+          <n-text font-size="small" text="Minimálne zdravotné odvody (mesačné)" />
           <q-input
             dense
             v-model.number="constantData.healthInsurance.min"
@@ -78,7 +78,7 @@
         </div>
 
         <div class="n-index-page__input-container">
-          <n-text font-size="small" text="Minimálne sociálne odvody" />
+          <n-text font-size="small" text="Minimálne sociálne odvody (mesačné)" />
           <q-input
             dense
             v-model.number="constantData.socialInsurance.min"
@@ -87,7 +87,7 @@
         </div>
 
         <div class="n-index-page__input-container">
-          <n-text font-size="small" text="Nezdaniteľná časť základu dane" />
+          <n-text font-size="small" text="Nezdaniteľná časť základu dane (ročná)" />
           <q-input
             dense
             v-model.number="constantData.nonTaxableBase"
