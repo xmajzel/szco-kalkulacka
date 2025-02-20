@@ -5,7 +5,7 @@
       font-size="h3"
       html-tag="h1"
       class="n-index-page__title"
-      text="Mesačný výpočet daní a odvodov pre SZČO 2024"
+      text="Mesačný výpočet daní a odvodov pre SZČO 2025"
     />
 
     <div class="n-index-page__content">
