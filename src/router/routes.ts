@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        redirect: { path: '2025' },
+        redirect: { path: '2026' },
       },
       {
         path: '2024',
@@ -16,6 +16,10 @@ const routes: RouteRecordRaw[] = [
       {
         path: '2025',
         component: () => import('pages/NFive.vue'),
+      },
+      {
+        path: '2026',
+        component: () => import('pages/NSix.vue'),
       },
     ],
   },
