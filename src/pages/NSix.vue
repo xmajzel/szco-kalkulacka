@@ -271,20 +271,24 @@ const results = computed(() => {
     constantData.healthInsurance.min,
   );
 
+  const annualTaxBaseBeforeAllowance = Math.max(
+    (_tBase -
+      inputs.healthInsuranceAdvances -
+      inputs.socialInsuranceAdvances) *
+      12,
+    0,
+  );
   const applicableNonTaxableBase =
-    _rawAssessmentBase * 12 <= constantData.nonTaxableMaxBase
+    annualTaxBaseBeforeAllowance <= constantData.nonTaxableMaxBase
       ? constantData.nonTaxableBase / 12
       : Math.max(
           constantData.nonTaxableBaseAdjustmentCoefficient -
-            (_rawAssessmentBase * 12) / 3,
+            annualTaxBaseBeforeAllowance / 3,
           0,
         ) / 12;
 
   const yearSales = inputs.sales * 12;
-  const annualTaxBaseAfterAllowance = Math.max(
-    _rawAssessmentBase * 12 - applicableNonTaxableBase * 12,
-    0,
-  );
+  const annualTaxBaseAfterAllowance = Math.max(annualTaxBaseBeforeAllowance - applicableNonTaxableBase * 12, 0);
   const annualTax = calculateAnnualTax(yearSales, annualTaxBaseAfterAllowance);
   const _tax = annualTax / 12;
 
@@ -301,7 +305,7 @@ const results = computed(() => {
     healthAssessmentBase: `max(${valueToString(_rawAssessmentBase)}€, ${valueToString(constantData.healthInsurance.minBase)}€) = ${valueToString(_healthAssessmentBase)}€`,
     socialInsurance: `${valueToString(_sInsurance.sickness)} + ${valueToString(_sInsurance.oldAge)} + ${valueToString(_sInsurance.disability)} + ${valueToString(_sInsurance.reserve)} = ${valueToString(_sInsurance.total)}€`,
     healthInsurance: `${valueToString(_healthAssessmentBase)} * ${valueToString(constantData.healthInsurance.rate)} = ${valueToString(_hInsurance)}€`,
-    tax: `${valueToString(annualTax)} / 12 = ${valueToString(_tax)}€`,
+    tax: `((${valueToString(_tBase)} - ${valueToString(inputs.healthInsuranceAdvances)} - ${valueToString(inputs.socialInsuranceAdvances)}) * 12 - ${valueToString(applicableNonTaxableBase * 12)}) => ${valueToString(annualTax)} / 12 = ${valueToString(_tax)}€`,
     saveToNextYear: `${valueToString(_tax)} + (${valueToString(_hInsurance)} - ${valueToString(inputs.healthInsuranceAdvances)}) = ${valueToString(_saveToNextYear)}€`,
     rest: `${valueToString(inputs.sales)} - ${valueToString(_saveToNextYear)} = ${valueToString(_rest)}€`,
   };
